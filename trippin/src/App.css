@@ -3,10 +3,10 @@
 }
 
 .backgroundImg {
-  background-image: url(https://images.pexels.com/photos/163185/old-retro-antique-vintage-163185.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 750px;
+  height: 780px;
 }
 .App-header {
   background-color: #282c34;
@@ -18,11 +18,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
 .App-link {
   color: #61dafb;
 }
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
