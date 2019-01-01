@@ -87,3 +87,5 @@ export default App;
 
 // Route - a component that renders a specified component (using either render or component)
 // based on the current url (path) we're at. path should probably match a <Link to=""> defined somewhere.
+
+// https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede
