@@ -23,15 +23,21 @@ class Restaurants extends Component {
   */
   }
   DoSomething(name) {
+    //   will be used to update trip with selected restaurant
     console.log(name);
   }
+
   GetEats(latitude, longitude) {
+    // using lat & long list nearby eats/ sends backend for url + locat, data, uses post function in views.py
     let data = { latitude, longitude };
+    console.log(data);
+    // post lat & long to backend api to get nearby eats
     return axios.post(URL + LOCATE, data).then(response => {
       this.setState({
         restaurants: JSON.parse(JSON.stringify(response.data)),
         listFood: true
       });
+      console.log(response);
       console.log(this.state.restaurants.businesses);
     });
   }
@@ -40,6 +46,7 @@ class Restaurants extends Component {
     return (
       <div>
         <button
+          // get nearby eats via lat & long
           onClick={() =>
             this.GetEats(
               this.props.coords.latitude,
@@ -50,6 +57,7 @@ class Restaurants extends Component {
           Get Eats!
         </button>
         <span>
+          {/* if restaurant returned, list restaurant name */}
           {this.state.listFood
             ? this.state.restaurants.businesses.map(d => (
                 <li key={d.name} onClick={() => this.DoSomething(d.name)}>

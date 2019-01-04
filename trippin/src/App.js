@@ -4,9 +4,6 @@ import "./App.css";
 import "./tripsummary.css";
 
 import Geolocation from "./geolocation";
-// import axios from "axios";
-//import Restaurants from "./components/restaurants";
-// import tripsummary from "./tripsummary";
 
 class App extends Component {
   constructor(props) {
@@ -48,9 +45,6 @@ class App extends Component {
           <main>
             <Geolocation ref={getInnerRef} />
             <button onClick={getLocation}>Update your location!</button>
-            {/* <Link exact path="/restaurants" Component={Restaurants} /> </Link> */}
-            {/* <button onClick={restaurants}> restaurants</button> */}
-            {/* <Restaurants /> */}
           </main>
         </div>
       </div>
