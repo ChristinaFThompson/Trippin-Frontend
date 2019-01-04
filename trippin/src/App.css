@@ -3,23 +3,39 @@
 }
 
 .backgroundImg {
-  background-image: url(https://images.pexels.com/photos/1464143/pexels-photo-1464143.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500);
+  background-image: url(https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 780px;
+  height: 730px;
 }
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.tag-line {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 40px;
+  font-style: italic;
+  color: aliceblue;
 }
+.App-header {
+  background-color: orange;
+  min-height: 85px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 65px;
+}
+.location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 90px;
+}
+
 .App-link {
-  color: #61dafb;
+  color: orange;
 }
 @keyframes App-logo-spin {
   from {

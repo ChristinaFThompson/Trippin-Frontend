@@ -1,83 +1,62 @@
 import React, { Component } from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./App.css";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import AppBar from "material-ui/AppBar";
-import RaisedButton from "material-ui/RaisedButton";
-import TextField from "material-ui/TextField";
-import { login } from "./util/Auth";
+import "./tripsummary.css";
 
-/* <Route />  => SETUP ROUTES 
-<Link />  => ALLOWS US TO LINK TO A ROUTE 
-<Switch />  => ALLOWS US TO SWITCH BETWEEN ROUTES, NESTED ROUTES/COMPLEX ROUTES */
+import Geolocation from "./geolocation";
+// import axios from "axios";
+//import Restaurants from "./components/restaurants";
+// import tripsummary from "./tripsummary";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: ""
+      restaurants: []
     };
+    this.getInnerRef = this.getInnerRef.bind(this);
+    this.getLocation = this.getLocation.bind(this);
   }
+  innerRef;
+  getInnerRef(ref) {
+    this.innerRef = ref;
+  }
+
+  getLocation() {
+    this.innerRef && this.innerRef.getLocation();
+  }
+
+  // create seperate login file, app component should be a template
   render() {
+    const { getInnerRef, getLocation } = this;
     return (
       <div className="backgroundImg">
-        <header>
+        <header className="App-header">
           <nav>
             <Link className="home" to="/">
               Trippin'
             </Link>
           </nav>
         </header>
-        <main>
-          <MuiThemeProvider>
-            <div>
-              <AppBar title="Login" />
-              <TextField
-                hintText="Enter your Username"
-                floatingLabelText="Username"
-                onChange={(event, newValue) =>
-                  this.setState({ username: newValue })
-                }
-              />
-              <br />
-              <TextField
-                type="password"
-                hintText="Enter your Password"
-                floatingLabelText="Password"
-                onChange={(event, newValue) =>
-                  this.setState({ password: newValue })
-                }
-              />
-              <br />
-              <RaisedButton
-                label="Submit"
-                primary={true}
-                style={style}
-                onClick={event =>
-                  login(this.state.username, this.state.password)
-                }
-              />
-            </div>
-          </MuiThemeProvider>
-          {/* switch to render instead of component when passing props */}
-          {/* <Route exact path="/NewTrip" component={() => <NewTrip />} />
-          <Route exact path="/EditTrip" component={() => <EditTrip />} />
-          <Route exact path="/" component={Home} 
-          <Route exact path="/Login" component={() => <LoginPage />} />
-          <Route exact path="/ShareLocation" component={() => <ShareLocation />} />
-          <Route exact path="/Activity" component={() => <Activity />} />
-          <Route exact path="/TripSummary" component={() => <TripSummary />} /> */}
-
-          <div className="container" />
-        </main>
+        <div>
+          <span className="tag-line">
+            {" "}
+            Sharing memories one trip at a time!
+          </span>
+        </div>
+        <div className="location">
+          <main>
+            <Geolocation ref={getInnerRef} />
+            <button onClick={getLocation}>Update your location!</button>
+            {/* <Link exact path="/restaurants" Component={Restaurants} /> </Link> */}
+            {/* <button onClick={restaurants}> restaurants</button> */}
+            {/* <Restaurants /> */}
+          </main>
+        </div>
       </div>
     );
   }
 }
-const style = {
-  margin: 15
-};
 
 export default App;
 

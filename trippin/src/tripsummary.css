@@ -1,0 +1,7 @@
+.trip-cart {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  font-size: 20px;
+  color: aliceblue;
+}

@@ -3,6 +3,9 @@ import _ from "lodash";
 import store from "../store";
 import { setToken } from "../actions";
 import { URL, LOGIN } from "../config/Api";
+import { REGISTER } from "../config/Api";
+
+// uses axios to post to our /auth backend and then dispatch the returned token toredux store.
 
 export function InvalidCredentialsException(message) {
   this.message = message;
@@ -19,7 +22,6 @@ export function login(username, password) {
       store.dispatch(setToken(response.data.token));
     })
     .catch(function(error) {
-      // raise different exception if due to invalid credentials
       if (_.get(error, "response.status") === 400) {
         throw new InvalidCredentialsException(error);
       }
@@ -30,5 +32,3 @@ export function login(username, password) {
 export function loggedIn() {
   return store.getState().token !== null;
 }
-
-// https://hackernoon.com/creating-websites-using-react-and-django-rest-framework-b14c066087c7
