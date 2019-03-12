@@ -1,0 +1,17 @@
+.App {
+  background-image: url("https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-size: cover;
+  justify-content: center;
+  margin: 5px 5px 0px 5px;
+  height: calc(100vh - 10px);
+}
+
+.app-title {
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(250, 204, 0);
+}

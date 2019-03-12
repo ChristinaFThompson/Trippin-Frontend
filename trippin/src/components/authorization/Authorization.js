@@ -2,53 +2,68 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
-import React, { Component } from "react";
-import { URL, REGISTER } from "./config/Api.js";
+import { URL, LOGIN, USER } from "./config/Api.js";
 import axios from "axios";
+import React, { Component } from "react";
+import Geolocation from "./geolocation";
 import store from "./store";
 import { setToken } from "./actions/index";
-import Geolocation from "./geolocation";
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    //this.handleClick = this.handleClick.bind(this);
     this.state = {
       username: "",
-      email: "",
-      password1: "",
-      password2: "",
-      isAuth: false
+      password: ""
     };
   }
+
   handleClick(event) {
+    var apiBaseUrl = URL;
+    var self = this;
     const username = this.state.username;
-    const password1 = this.state.password1;
-    const password2 = this.state.password2;
-    const email = this.state.email;
-    const payload = { username, password1, password2, email };
-    const self = this;
-    return axios
-      .post(URL + REGISTER, payload)
+    const password = this.state.password;
+    const payload = { username, password };
+    axios
+      .post(apiBaseUrl + LOGIN, payload)
       .then(function(response) {
-        store.dispatch(setToken(response.data.key));
-        var uploadScreen = [];
-        uploadScreen.push(<Geolocation appContext={self.props.appContext} />);
-        self.props.appContext.setState({
-          loginPage: [],
-          uploadScreen: uploadScreen
-        });
+        if (response.status == 200) {
+          console.log("Login successfull");
+          store.dispatch(setToken(response.data.token));
+        } else if (response.status == 204) {
+          console.log("Username password do not match");
+          alert("username password do not match");
+        } else {
+          console.log("Username does not exists");
+          alert("Username does not exist");
+        }
+        return axios
+          .get(URL + USER, {
+            headers: { Authorization: "Token " + store.getState().token }
+          })
+          .then(function(response) {
+            var uploadScreen = [];
+            uploadScreen.push(
+              <Geolocation appContext={self.props.appContext} />
+            );
+            self.props.appContext.setState({
+              loginPage: [],
+              uploadScreen: uploadScreen
+            });
+            self.props.appContext.setState({ user: response.data });
+          });
       })
       .catch(function(error) {
         console.log(error);
       });
   }
+
   render() {
     return (
       <div>
         <MuiThemeProvider>
           <div>
-            <AppBar title="Register" />
+            <AppBar title="Login" />
             <TextField
               hintText="Enter your Username"
               floatingLabelText="Username"
@@ -58,26 +73,11 @@ class Login extends Component {
             />
             <br />
             <TextField
-              hintText="Enter your email"
-              floatingLabelText="email"
-              onChange={(event, newValue) => this.setState({ email: newValue })}
-            />
-            <br />
-            <TextField
               type="password"
               hintText="Enter your Password"
               floatingLabelText="Password"
               onChange={(event, newValue) =>
-                this.setState({ password1: newValue })
-              }
-            />
-            <br />
-            <TextField
-              type="password"
-              hintText="Enter your Password"
-              floatingLabelText="Confirm Password"
-              onChange={(event, newValue) =>
-                this.setState({ password2: newValue })
+                this.setState({ password: newValue })
               }
             />
             <br />
@@ -94,6 +94,6 @@ class Login extends Component {
   }
 }
 const style = {
-  margin: 15
+  // margin: 15
 };
 export default Login;

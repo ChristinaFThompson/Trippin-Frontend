@@ -1,6 +1,8 @@
 import React from "react";
 import { geolocated } from "react-geolocated";
 import Restaurants from "./components/restaurants";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import AppBar from "material-ui/AppBar";
 
 class Geolocation extends React.Component {
   render() {
@@ -11,17 +13,20 @@ class Geolocation extends React.Component {
       <div>Geolocation is not enabled</div>
     ) : this.props.coords ? (
       <div>
-        {/* render geo location if avail and allowed */}
-        <span>latitude</span>
-        <br /> {this.props.coords.latitude}
-        <br />
-        <span>longitude</span>
-        <br /> {this.props.coords.longitude}
-        <br />
-        <div>
-          {/* load restaurant component to render list of nearby restaurants using lat & long via react geolocated */}
-          <Restaurants coords={this.props.coords} />
-        </div>
+        <MuiThemeProvider>
+          <AppBar title="Current Coordinates" />
+          {/* render geo location if avail and allowed */}
+          <span>Latitude: </span> {this.props.coords.latitude}
+          <br />
+          <br />
+          <span>Longitude: </span> {this.props.coords.longitude}
+          <br />
+          <br />
+          <div>
+            {/* load restaurant component to render list of nearby restaurants using lat & long via react geolocated */}
+            <Restaurants info={this.props.coords} />
+          </div>
+        </MuiThemeProvider>
       </div>
     ) : (
       //
