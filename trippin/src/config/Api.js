@@ -1,4 +1,4 @@
-export const URL = "http://localhost:8000";
+export const URL = "https://trippin-api.herokuapp.com";
 export const LOGIN = "/api/v1/auth";
 export const REGISTER = "/api/v1/rest-auth/registration/";
 export const LOCATE = "/api/v1/locate/";
